@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to your Mail account!</title>
+<style>
+    body {
+        width: 55em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Dear {{ ldap_mail_username }}@{{ ldap_mail_userdomain }},</h1>
+<em>Some catchy headline to go here.</em>
+
+<p><b><em>Welcome</em></b>! Enjoy using your mail account on <b>{{ ldap_mail_userdomain }}</b>.</p>
+
+<p>
+Cheers,<br>
+Staff
+</p>
+<hr>
+<p><a href="https://mail.example.email">Webmail</a> | <a href="mailto: admin@example.email">Contact</a></p>
+</body>
+</html>

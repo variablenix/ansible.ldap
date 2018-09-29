@@ -1,0 +1,44 @@
+---
+- name: Provision new LDAP mail account for {{ ldap_mail_username }}@{{ ldap_mail_userdomain }}
+  ldap_entry:
+    dn: "uid={{ ldap_mail_username }},{{ ldap_mail_search_base }}"
+    objectClass:
+      - top
+      - person
+      - organizationalPerson
+      - inetOrgPerson
+      - PostfixBookMailAccount
+    attributes:
+      uid: "{{ ldap_mail_username }}"
+      mail: "{{ ldap_mail_username }}@{{ ldap_mail_userdomain }}"
+      cn: "{{ firstname }} {{ lastname }}"
+      sn: "{{ lastname }}"
+      mailEnabled: "TRUE"
+      mailUidNumber: 5000
+      mailGidNumber: 5000
+      description:  "{{ ldap_user_description }}"
+      mailHomeDirectory: "/home/vmail/{{ ldap_mail_userdomain }}/{{ ldap_mail_username }}@{{ ldap_mail_userdomain }}"
+      mailStorageDirectory: "maildir:/home/vmail/{{ ldap_mail_userdomain }}/{{ ldap_mail_username }}@{{ ldap_mail_userdomain }}/Maildir"
+      mailQuota: "{{ ldap_mail_quota }}"
+      userPassword: "{{ ldap_default_password }}"
+    state: present
+    server_uri: ldap://{{ ldap_server }}/
+    bind_dn: "{{ ldap_bind_dn }}"
+    bind_pw: "{{ ldap_admin_password }}"
+    start_tls: yes
+  tags: [mailuser]
+
+# Send welcome email to new mail user account
+- name: Send secure welcome email to new LDAP mail account for {{ ldap_mail_username }}@{{ ldap_mail_userdomain }}
+  mail:
+    host: "{{ mailhost }}"
+    port: "{{ mailport }}"
+    secure: "{{ mailsecure }}"
+    subtype: html
+    from: Staff <staff@{{ ldap_mail_userdomain }}>
+    to: "{{ firstname }} <{{ ldap_mail_username }}@{{ ldap_mail_userdomain }}>"
+    cc: Staff <staff@{{ ldap_mail_userdomain }}>
+    subject: "{{ mailsubject }}"
+    body: "{{ lookup('template', '{{ mail_default_template }}') }}"
+  tags: [email,welcome]
+

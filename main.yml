@@ -1,0 +1,19 @@
+---
+- name: LDAP Mail User/Group Provisioning
+  hosts: myhost
+  remote_user: deploy
+  become: yes
+  gather_facts: no
+  vars_files:
+    - vars/main.yml
+  pre_tasks:
+    - name: Ensure required LDAP client API for Python is installed
+      pacman:
+        name: python-ldap
+        state: present
+        update_cache: yes
+
+  roles:
+    - { role: ldap_mail_users, tags: [ 'mailuser' ] }
+    - { role: ldap_mail_groups, tags: [ 'mailgroup' ] }
+

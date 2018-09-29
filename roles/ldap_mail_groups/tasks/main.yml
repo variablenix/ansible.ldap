@@ -1,0 +1,23 @@
+---
+- name: Provision new LDAP mail distribution group
+  ldap_entry:
+    dn: "mail={{ mailgroup }},{{ ldap_mail_groups_search_base }}"
+    objectClass:
+      - top
+      - organizationalPerson
+      - PostfixBookMailAccount
+    attributes:
+      mail: "{{ mailgroup }}@{{ groupdomain }}"
+      cn: mailgroup
+      sn: group
+      mailEnabled: "TRUE"
+      mailUidNumber: 5000
+      mailGidNumber: 5000
+      description:  "{{ ldap_group_description }}"
+    state: present
+    server_uri: ldap://{{ ldap_server }}/
+    bind_dn: "{{ ldap_bind_dn }}"
+    bind_pw: "{{ ldap_admin_password }}"
+    start_tls: yes
+  tags: [mailgroup]
+

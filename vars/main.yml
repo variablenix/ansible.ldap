@@ -1,0 +1,41 @@
+---
+# Welcome email
+mail_default_template: "welcome.html.j2"
+
+# Basic info
+firstname: "jay"
+lastname: "dee"
+
+# LDAP mail user info
+ldap_mail_username: "jd"
+ldap_mail_userdomain: "example.email"
+
+# LDAP mail group info (pass vars to ansible-playbook)
+# mailgroup: ""
+# groupdomain: ""
+
+# LDAP settings
+ldap_server_provider: "ldap"
+ldap_domain: "example.email"
+ldap_server: "{{ ldap_server_provider }}.{{ ldap_domain }}"
+ldap_base: "dc=example,dc=email"
+ldap_mail_search_base: "ou=Mail,dc=example,dc=email"
+ldap_mail_groups_search_base: "ou=Groups,ou=Mail,dc=example,dc=email"
+ldap_mail_domains_search_base: "ou=Domains,dc=example,dc=email"
+ldap_default_password: "changeme"
+ldap_mail_quota: "500MB"
+ldap_user_description: "{{ ldap_mail_username }}'s {{ ldap_mail_userdomain }} mail account"
+ldap_group_description: "{{ mailgroup }}@{{ groupdomain }} distribution group"
+starttls: "yes"
+requiretls: "yes"
+ldap_bind_dn: "cn=admin,{{ ldap_base }}"
+ldap_admin_password:
+
+    create with ->  ansible-vault encrypt_string 'secretpw' --name 'ldap_admin_password'
+
+# SMTP settings
+mailhost: "mail.example.email"
+mailport: 25
+mailsecure: "starttls"
+mailsubject: "{{ ldap_mail_userdomain }}: LDAP mail account provisioned"
+
