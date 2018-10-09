@@ -37,7 +37,7 @@
     subtype: html
     from: Staff <staff@{{ ldap_mail_userdomain }}>
     to: "{{ firstname }} <{{ ldap_mail_username }}@{{ ldap_mail_userdomain }}>"
-    cc: Staff <staff@{{ ldap_mail_userdomain }}>
+    cc: "{{ mailcc }}"
     subject: "{{ mailsubject }}"
     body: "{{ lookup('template', '{{ mail_default_template }}') }}"
   tags: [email,welcome]

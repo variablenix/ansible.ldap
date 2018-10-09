@@ -38,4 +38,6 @@ mailhost: "mail.example.email"
 mailport: 25
 mailsecure: "starttls"
 mailsubject: "{{ ldap_mail_userdomain }}: LDAP mail account provisioned"
-
+mailcc:
+  - Staff <staff@{{ ldap_mail_userdomain }}>
+  - Their Name <someone@gmail.com>
