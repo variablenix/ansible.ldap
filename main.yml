@@ -16,4 +16,3 @@
   roles:
     - { role: ldap_mail_users, tags: [ 'mailuser' ] }
     - { role: ldap_mail_groups, tags: [ 'mailgroup' ] }
-
