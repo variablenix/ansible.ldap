@@ -41,4 +41,3 @@
     subject: "{{ mailsubject }}"
     body: "{{ lookup('template', '{{ mail_default_template }}') }}"
   tags: [email,welcome]
-
