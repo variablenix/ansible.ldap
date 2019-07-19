@@ -35,7 +35,7 @@ ldap_admin_password:
 
 # SMTP settings
 mailhost: "mail.example.email"
-mailport: 25
+mailport: 587
 mailsecure: "starttls"
 mailsubject: "{{ ldap_mail_userdomain }}: LDAP mail account provisioned"
 mailcc:
