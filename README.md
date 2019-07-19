@@ -2,7 +2,7 @@
 The LDAP mail roles in this Playbook provision both LDAP mail users and distribution groups. 
 
 ### Prepare
-Create the mailstack virtualenv.
+Create the ldap virtualenv.
 
 `mkvirtualenv ldap; pip install -r requirements.txt`
 
